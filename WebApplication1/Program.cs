@@ -8,13 +8,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+builder.Services.AddDbContext<Context>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Northwind"));
+});
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 
